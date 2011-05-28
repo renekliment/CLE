@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CLE_config>
+    <section name="static">
+        <item mask="$$">modules/simpleStatic/pages/static</item>
+    </section>
+</CLE_config>

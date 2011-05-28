@@ -1,0 +1,49 @@
+Dependencies
+============
+- Apache 2 + mod_rewrite
+- PHP >= 5.3
+
+Install
+=======
+- uncompress the archive (or clone the GIT repo) into a directory, which is in some DocumentRoot
+
+- rename following files:
+    conf/config.CLE.template.xml -> conf/config.xml
+    conf/seo.template.xml        -> conf/seo.xml
+
+  and set what you need in config.xml
+  - if you want to use some database server (MySQL, PostgreSQL, ...),
+    you'll definitely have to set some values in section CLE_Ibdi (database connection settings)
+
+  - if the system is not in a root url (e.g. http://www.company.com/), but in a directory (www.company.com/website/),
+    you need to set main/nonRootPrefix to "/website/"
+
+- you'll probably want to add a website theme of yours ... download one, or make one ...
+  just take themes/simple/main.tpl as a template, add some sidebar and header DIVs and create default.css with nice colors!
+  two files - that's all what you need!
+
+- that's it, you're good to go ... just insert or make some modules and roll!
+
+Website and license
+===================
+- hit https://github.com/renekliment/CLE/ into your browser's address bar
+- license info should be included in every PHP file
+
+CLE is using following external code / pieces of software:
+==========================================================
+- dibi
+    - purpose: database library
+    - website: http://dibiphp.com/
+    - license: http://dibiphp.com/en/licence
+    - file(s):
+        - sys/external/dibi.min.php
+- jQuery
+    - purpose: javascript library
+    - website: http://jquery.org/
+    - license: http://jquery.org/license/
+    - file(s):
+        - js/jquery.js
+- function friendlyURL()
+    - author: Jakub Vrána, http://php.vrana.cz/
+    - file(s):
+        - sys/CL/class.cl.seo.php

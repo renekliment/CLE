@@ -1,0 +1,23 @@
+php_flag display_errors Off
+php_flag register_globals Off
+
+Options +FollowSymlinks
+
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^website.com
+RewriteRule (.*) http://www.website.com/$1 [R=301,QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} index\.php
+RewriteRule (.*) - [L]
+
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule (.*) - [L]
+
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule (.*) - [L]
+
+RewriteCond %{REQUEST_FILENAME}/ -d
+RewriteRule (.*) - [L]
+
+RewriteRule (.*) /index.php?seo=$1 [QSA]

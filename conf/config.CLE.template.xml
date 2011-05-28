@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CL_config>
+<!--
+##############################################
+###                                        ###
+###     Config of CL framework             ###
+###                                        ###
+##############################################
+-->
+
+<!-- Base variables -->
+<CL>
+    <!-- string the full path to the temp directory (for handling file uploads, etc); slash ended -->
+    <tmp_dir>/tmp/</tmp_dir>
+
+    <!-- bool alow redirect to the $_GET['r'], if it is set -->
+    <allowRedirect>TRUE</allowRedirect>
+</CL>
+
+<!-- If using template system (CL_Templates) -->
+<CL_Templates>
+    <!-- string the path to layouts directory; slash ended -->
+    <dir>themes/</dir>
+
+    <!-- string default layouts directory, according to the 'layout_dir'; slash ended -->
+    <dir_default>simple/</dir_default>
+
+    <!-- string default name of main template file -->
+    <default_main_file>main.tpl</default_main_file>
+</CL_Templates>
+
+<!-- If using images module (CL_Images) -->
+<CL_Images>
+    <!-- string image engine, can be one of:
+        "gd",
+        "imagick-php" (uses imagick php module)
+        or "imagick-cli" (uses exec function)
+    -->
+    <engine>imagick-php</engine>
+</CL_Images>
+
+<!-- If using SEO module (CL_SEO) -->
+<CL_SEO>
+    <!-- string default file to load (if no params) -->
+    <defaultFile>modules/index</defaultFile>
+
+    <!-- string filename, where are rules for loading files via SEO URL -->
+    <fileName>./conf/seo.xml</fileName>
+</CL_SEO>
+
+<!--
+##############################################
+###                                        ###
+###     Config of CLExtended               ###
+###                                        ###
+##############################################
+-->
+
+<!-- Modules "module" :-) (CLE_Modules) -->
+<CLE_Modules>
+    <!-- <module installed="" enabled="" autorun=""></module> -->
+    <module installed="1" enabled="1" autorun="1">systemModule</module>
+
+    <!-- ADDHERE-MODULES -->
+</CLE_Modules>
+
+<!-- If using extension for dibi database class (CLE_Ibdi) -->
+<CLE_Ibdi>
+    <enabled>0</enabled>
+    <driver>mysqli</driver>
+    <server>localhost</server>
+    <user>root</user>
+    <password></password>
+    <database>cle</database>
+
+    <prefix></prefix>
+
+    <terminateScriptOnError>1</terminateScriptOnError>
+</CLE_Ibdi>
+
+
+<!--
+##############################################
+###                                        ###
+###     Module's config                    ###
+###                                        ###
+##############################################
+-->
+<!-- ADDHERE-MODULECONFIG -->
+<simpleStatic>
+    <index>Index</index>
+</simpleStatic>
+
+<!--
+##############################################
+###                                        ###
+###     Config of website                  ###
+###                                        ###
+##############################################
+-->
+
+<main>
+    <website_name>Website name</website_name>
+    <website_webmaster>John Smith</website_webmaster>
+    <website_description>Our super-cool website</website_description>
+    <website_keywords>cool,website,hype</website_keywords>
+
+    <nonRootPrefix>/</nonRootPrefix>
+
+    <default_language>en</default_language>
+
+    <address_ssl>https://www.website.com/</address_ssl>
+
+    <footer><![CDATA[
+        Copyright (c) ${currentYear} ${header-title}.<br />
+        Powered by <a href="https://github.com/renekliment/CLE/">CLE</a>.
+    ]]></footer>
+</main>
+
+<goodFileTypes>
+    <item mime="image/jpeg" extension="jpg" type="image" />
+    <item mime="image/png" extension="png" type="image" />
+    <item mime="image/gif" extension="gif" type="image" />
+
+    <item mime="application/msword" extension="doc" type="document" />
+    <item mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document" extension="docx" type="document" />
+    <item mime="application/pdf" extension="pdf" type="document" />
+    <item mime="application/vnd.oasis.opendocument.text" extension="odt" type="document" />
+</goodFileTypes>
+
+</CL_config>

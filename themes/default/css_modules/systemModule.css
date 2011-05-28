@@ -1,0 +1,12 @@
+.paging {
+    text-align: center;
+}
+
+.clearingDiv {
+    clear: both;
+}
+
+#message {
+    text-align: center;
+    color: green;
+}
