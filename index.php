@@ -54,7 +54,7 @@ function __autoload($class)
 {
     global $_autoloadArray;
 
-    if ($class != 'Nette\Diagnostics\IBarPanel' AND $class != 'IBarPanel') {
+    if (in_array($class, $_autoloadArray)) {
         require_once $_autoloadArray[$class];
     }
 }

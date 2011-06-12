@@ -22,7 +22,7 @@
     <!-- string the path to layouts directory; slash ended -->
     <dir>themes/</dir>
 
-    <!-- string default layouts directory, according to the 'layout_dir'; slash ended -->
+    <!-- string default layouts directory, according to the 'CL_Templates/dir'; slash ended -->
     <dir_default>simple/</dir_default>
 
     <!-- string default name of main template file -->
