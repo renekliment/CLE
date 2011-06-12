@@ -54,7 +54,7 @@ function __autoload($class)
 {
     global $_autoloadArray;
 
-    if (in_array($class, $_autoloadArray)) {
+    if (in_array($class, array_keys($_autoloadArray))) {
         require_once $_autoloadArray[$class];
     }
 }
