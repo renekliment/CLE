@@ -56,4 +56,12 @@
                 <option value="${item-id}"${item-selected}>${item-name}</option>
 ]]></part>
 
+<part id="form-item-selected"><![CDATA[
+selected="selected"
+]]></part>
+
+<part id="form-item-checked"><![CDATA[
+checked="checked"
+]]></part>
+
 </template>
