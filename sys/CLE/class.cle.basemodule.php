@@ -5,7 +5,7 @@
  * @package CLE
  * @subpackage Classes
  * @author Rene Kliment <rene.kliment@gmail.com>
- * @version 1.0
+ * @version 1.1
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License - Version 3, 19 November 2007
  *
  * This software is dual-licensed - it is also available under a commercial license,
@@ -42,22 +42,22 @@ class CLE_BaseModule
      * @param integer $id item ID
      * @return bool exists or not?
      */
-    function exists($id)
+    function exist($id)
     {
         return CLE_Ibdi::getInstance()->rowExists($id, $this->dbTable);
     }
 
     /**
-     * Well-known id2eveyrhing function, which returns any of the informations
+     * Well-known id2column function, which returns any of the information
      * about some item by its ID. It uses main DB table of the module.
      * 
      * @param integer $id item ID
      * @param string $what needed column
      * @return integer|string wanted value
      */
-    function id2everything($id, $what='name')
+    function id2column($id, $what='name')
     {
-        return CLE_Ibdi::getInstance()->id2everything($id, $this->dbTable, $what);
+        return CLE_Ibdi::getInstance()->id2column($id, $this->dbTable, $what);
     }
 
     /**
@@ -79,6 +79,32 @@ class CLE_BaseModule
     function minMax($col)
     {
         return CLE_Ibdi::getInstance()->minMax($col, $this->dbTable);
+    }
+
+    /**
+     * Loads all columns (all information) of a row
+     * according to a row ID column
+     *
+     * @param $id ID of a DB row
+     * @return array of all columns related to the specified row
+     */
+    function load($id)
+    {
+        return CLE_Ibdi::getInstance()->load($id, $this->dbTable);
+    }
+
+    /**
+     * Load rows from a DB table (limited and sorted by method parameters)
+     *
+     * @param string $start start record for limit
+     * @param string $limit number of records requested (limit)
+     * @param string $orderColumn column to order rows by
+     * @param string $order order type
+     * @return object db rows
+     */
+    function loadMany($start='', $limit='', $orderColumn='', $order='ASC')
+    {
+        return CLE_Ibdi::getInstance()->loadMany($this->dbTable, $start, $limit, $orderColumn, $order);
     }
 
 }

@@ -4,7 +4,7 @@
  *
  * @package CL
  * @author Rene Kliment <rene.kliment@gmail.com>
- * @version 1.0
+ * @version 1.1
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License - Version 3, 19 November 2007
  *
  * This software is dual-licensed - it is also available under a commercial license,
@@ -47,6 +47,11 @@ class CL
     protected static $tokenVerified = FALSE;
 
     /**
+     * @var bool what was the result?
+     */
+    protected static $tokenVerifiedStatus = FALSE;
+
+    /**
      * @var object the instance of the class (Singleton pattern)
      */
     private static $instance;
@@ -61,7 +66,7 @@ class CL
             header('Refresh: 0; url='.$_GET['r']);
             exit;
         }
-        
+
         /* Sessions start, let's roll guys, with sessions, the real fun begins! Yeah! (Take care of them, avoid SID stealing) */
         if (!isset($_SESSION)) {
             session_start();
@@ -132,15 +137,17 @@ class CL
     function tokenVerify()
     {
         if (self::$tokenVerified) {
-            return TRUE;
+            return self::$tokenVerifiedStatus;
         } else {
+            self::$tokenVerified = TRUE;
+
             $name = $_SESSION['token_name'];
             if (isset($_POST[$name]) AND $_POST[$name] == $_SESSION['token']) {
-                self::$tokenVerified = TRUE;
+                self::$tokenVerifiedStatus = TRUE;
+                self::tokenGenerate();
             }
-            self::tokenGenerate();
 
-            return self::$tokenVerified;
+            return self::$tokenVerifiedStatus;
         }
     }
 
@@ -351,6 +358,7 @@ class CL
      *
      * @param string $file file to download (full path is nice)
      * @param string $name name of the file for download (you can choose another name, than original)
+     * @return bool|null returns false if operation was unsuccessful; returns nothing and echoes the file if successful
      */
     function downloadFile($file, $name)
     {
@@ -385,7 +393,7 @@ class CL
     /**
      * If there is no cal_days_in_month() function, we can simply handle it :-)
      *
-     * @param string $cal calendar type
+     * @param mixed $cal calendar type (constant)
      * @param integer $month month
      * @param integer $year year
      * @return integer days in month
@@ -490,6 +498,8 @@ class CL
                 ));
             }
 
+            $layout->set('data', nl2br("\n").$layout->getTpl('##base.tpl', 'PAGING-TOGETHER'));
+
             /* Set some info stuff */
             $layout->set(array(
                 'items' => $paging['items'],
@@ -511,6 +521,18 @@ class CL
             );
 
             return str_replace($search, $replace, $layout->getContent());
+        } elseif ($paging['items'] > 0) {
+            $layout = new CL_Templates('##base.tpl', 'PAGING-MAIN');
+            $layout->set('data', $layout->getTpl('##base.tpl', 'PAGING-TOGETHER'));
+
+            /* Set some info stuff */
+            $layout->set(array(
+                'items' => $paging['items'],
+                'what'  => $what,
+                'param' => $param,
+            ));
+
+            return $layout->getContent();
         }
 
         return '';

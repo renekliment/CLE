@@ -3,7 +3,7 @@
  * @package CLE
  * @subpackage SysFiles
  * @author Rene Kliment <rene.kliment@gmail.com>
- * @version 1.0
+ * @version 1.1
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License - Version 3, 19 November 2007
  * 
  * This software is dual-licensed - it is also available under a commercial license,
@@ -23,6 +23,7 @@ require_once './sys/CL/class.cl.xety.php';
 require_once './sys/CLE/class.cle.ibdi.php';
 require_once './sys/CLE/class.cle.modules.php';
 require_once './sys/CLE/class.cle.basemodule.php';
+require_once './sys/CLE/class.cle.json.php';
 
 /* CL base object */
 $_CL = CL::getInstance();
@@ -31,6 +32,9 @@ $_CL = CL::getInstance();
 $_autoloadArray = array();
 $_setVarsArray = array();
 $_addVarsArray = array();
+
+/* Array of modules, that support SOAP | JSON */
+$_jsonEnabledModules = array();
 
 if (CL::getConf('CLE_Ibdi/enabled') == 1) {
     require_once './sys/external/dibi.min.php';

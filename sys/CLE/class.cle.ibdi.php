@@ -5,7 +5,7 @@
  * @package CLE
  * @subpackage Classes
  * @author Rene Kliment <rene.kliment@gmail.com>
- * @version 1.0
+ * @version 1.1
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License - Version 3, 19 November 2007
  *
  * This software is dual-licensed - it is also available under a commercial license,
@@ -111,7 +111,7 @@ class CLE_Ibdi
     /**
      * Return wanted value according to given ID
      * for example: I have user's ID and I want his name:
-     * ->id2everything(5, 'users'); (default column is name, so if we want name, there is no need of specifying it)
+     * ->id2column(5, 'users'); (default column is 'name', so if we want name, there is no need of specifying it)
      *
      * @global object $_dibi database object
      * @param integer $id id value
@@ -119,7 +119,7 @@ class CLE_Ibdi
      * @param string $what column you want
      * @return string wanted value
      */
-    function id2everything($id, $table, $what='name')
+    function id2column($id, $table, $what='name')
     {
         global $_dibi;
 
@@ -183,6 +183,46 @@ class CLE_Ibdi
         return array($min, $max);
     }
 
+    /**
+     * Loads all columns (all information) of a row
+     * according to the row ID column
+     *
+     * @param $id ID of a DB row
+     * @param $table database table
+     * @return array of all columns related to the specified row
+     */
+    function load($id, $table)
+    {
+        global $_dibi;
+
+        return $_dibi->fetch("SELECT *
+                              FROM `".self::getNameOfTable($table)."`
+                              WHERE `id`=%i", $id
+        );
+    }
+
+    /**
+     * Load rows from a DB table (limited and sorted by method parameters)
+     *
+     * @param $table db table to use
+     * @param string $start start record for limit
+     * @param string $limit number of records requested (limit)
+     * @param string $orderColumn column to order rows by
+     * @param string $order order type
+     * @return object db rows
+     */
+    function loadMany($table, $start='', $limit='', $orderColumn='', $order='ASC')
+    {
+        global $_dibi;
+
+        return $_dibi->fetchAll("SELECT *
+                                 FROM `".CLE_Ibdi::getNameOfTable($table)."`
+                                 %if ",$orderColumn,"
+                                    ORDER BY `".$orderColumn."` ".$order."
+                                 %end
+                                 %if", $limit, "LIMIT ".(int)$start.','.(int)$limit
+        );
+    }
 }
 
 ?>

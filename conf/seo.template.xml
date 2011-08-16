@@ -3,4 +3,8 @@
     <section name="static">
         <item mask="$$">modules/simpleStatic/pages/static</item>
     </section>
+
+    <section name="json">
+        <item mask="$$">modules/systemModule/json</item>
+    </section>
 </CLE_config>

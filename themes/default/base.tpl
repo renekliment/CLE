@@ -17,8 +17,11 @@
 <br />
 <p class="paging">
     ${data}
-    <br /><i>(${items} ${what} {LNG_BASE_PAGING_TOGETHER})</i>
 </p>
+]]></part>
+
+<part id="paging-together"><![CDATA[
+    <i>(${items} ${what} {LNG_BASE_PAGING_TOGETHER})</i>
 ]]></part>
 
 <part id="paging-value"><![CDATA[
